@@ -14,6 +14,22 @@ const ControlPresupuesto = ({
     const [disponible, setDisponible] = useState(0)
     const [gastado, setGastado] = useState(0)
 
+    useEffect(() => {
+        const totalGastado = gastos.reduce((total, gasto) => gasto.cantidad + total, 0);
+        const totalDisponible = presupuesto - totalGastado;
+
+        // Calcular el porcentaje gastado
+        const nuevoPorcentaje = (((presupuesto - totalDisponible) / presupuesto) * 100).toFixed(2);
+
+
+        setDisponible(totalDisponible)
+        setGastado(totalGastado)
+        setTimeout(() => {
+            setPorcentaje(nuevoPorcentaje)
+        }, 1500);
+    }, [gastos])
+
+    
     const formatearCantidad = (cantidad) => {
         return cantidad.toLocaleString('en-US', {
             style: 'currency',
