@@ -28,7 +28,15 @@ function App() {
     }
   }, [gastoEditar])
   
-  
+  ///filtrar gastos 
+  useEffect(() => {
+    if(filtro) {//si tengo un filtro
+        const gastosFiltrados = gastos.filter( gasto => gasto.categoria === filtro)
+        setGastosFiltrados(gastosFiltrados)
+    }
+  }, [filtro]);
+  ///
+
   const guardarGasto = gasto => {
     if(gasto.id) {
       // Actualizar
